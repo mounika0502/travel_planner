@@ -1,0 +1,11 @@
+.card, .form-control, button {
+  border-radius: 10px;
+}
+
+button {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 700;
+}
