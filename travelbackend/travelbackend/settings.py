@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-
+import os
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,9 +31,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+DEBUG = os.environ.get("RENDER") is None
+
+
+ALLOWED_HOSTS = [
+    "travel-planner-8akq.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 
 
 TEMPLATES = [
@@ -79,5 +86,10 @@ SIMPLE_JWT = {
 
 
 STATIC_URL = 'static/'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    "https://travel-planner-8akq.onrender.com",
+]
 
 
