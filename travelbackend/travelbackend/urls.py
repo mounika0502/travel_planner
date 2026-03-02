@@ -17,9 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
+    path('', lambda request: HttpResponse("Travel Planner Backend is Live 🚀")),
+
     path('admin/', admin.site.urls),
     path('api/', include('planner.urls')),
     path('api/token/', TokenObtainPairView.as_view()),
