@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 from rest_framework.decorators import permission_classes
 from .models import Booking
@@ -94,3 +96,14 @@ def create_booking(request):
     )
 
     return Response({"message": "Payment successful"})
+
+
+def create_admin(request):
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@gmail.com",
+            password="admin123"
+        )
+        return JsonResponse({"message": "Admin created"})
+    return JsonResponse({"message": "Admin already exists"})
