@@ -2,18 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 
-export default function Login() {
+export default function Login({ setIsAuth }) {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const login = async (e) => {
-    e.preventDefault(); // 🚨 IMPORTANT
+    e.preventDefault();
 
     try {
       const res = await API.post("token/", {
-        username,
-        password,
+        username: username.trim(),
+        password: password.trim(),
       });
 
       console.log("Login response:", res.data);
@@ -21,7 +22,9 @@ export default function Login() {
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 
+      setIsAuth(true);
       navigate("/dashboard");
+
     } catch (err) {
       console.log("Login error:", err.response?.data);
       alert("Invalid username or password");
