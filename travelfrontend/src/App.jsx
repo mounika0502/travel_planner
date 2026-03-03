@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -7,12 +6,10 @@ import Navbar from "./components/Navbar";
 import Trips from "./pages/Trips";
 
 export default function App() {
-  const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("access");
-    setIsAuth(!!token);
-  }, []);
+  const isAuthenticated = () => {
+    return !!localStorage.getItem("access");
+  };
 
   return (
     <BrowserRouter>
@@ -23,12 +20,12 @@ export default function App() {
 
         <Route
           path="/dashboard"
-          element={isAuth ? <Dashboard /> : <Navigate to="/" />}
+          element={isAuthenticated() ? <Dashboard /> : <Navigate to="/" />}
         />
 
         <Route
           path="/trips"
-          element={isAuth ? <Trips /> : <Navigate to="/" />}
+          element={isAuthenticated() ? <Trips /> : <Navigate to="/" />}
         />
       </Routes>
     </BrowserRouter>
