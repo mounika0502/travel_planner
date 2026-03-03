@@ -1,7 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 
-import dj_database_url
+
 import os
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,13 +62,13 @@ TEMPLATES = [
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 
